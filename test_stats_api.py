@@ -1,7 +1,8 @@
-print('Hello World')
+import nfldb
 
-x = 10
-if x > 20:
-    print('Yes its 20')
-else:
-    print('No it is not 20')
+db = nfldb.connect()
+q = nfldb.Query(db)
+
+q.game(season_year=2012, season_type='Regular')
+for pp in q.sort('passing_yds').limit(5).as_aggregate():
+    print pp.player, pp.passing_yds
